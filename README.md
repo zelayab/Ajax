@@ -1,5 +1,8 @@
 # Welcome to Ajax with Nasa API and Express/NodeJs 👋
 
+## Description
+Using Ajax in a Express/nodeJs server with Nasa API / Usando Ajax con Express/nodeJs con la API de la Nasa
+
 ## Author
 
 👤 **zelayab**
