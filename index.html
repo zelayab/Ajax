@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NASA Picture of the Day</title>
+  </head>
+  <body>
+    <div class="container">
+      <input type="date" id="dateTime" />
+      <button id="btnShow">Show Astronomic Picture of the Day</button>
+    </div>
+
+    <h1 id="title"></h1>
+    <div class="container">
+      <h2 id="date"></h2>
+      <div class="col-1">
+        <img id="image" />
+      </div>
+      <div class="col-1">
+        <p id="explanation"></p>
+      </div>
+    </div>
+
+    <script>
+      const btnShow = document.getElementById("btnShow");
+      const imgPicture = document.getElementById("image");
+      const h1Title = document.getElementById("title");
+      const pExplanation = document.getElementById("explanation");
+      const h2Date = document.getElementById("date");
+      const inpDate = document.getElementById("dateTime");
+
+      let fechaHoy = new Date();
+      let formatDate =
+        fechaHoy.getFullYear() +
+        "-" +
+        "0" +
+        (fechaHoy.getMonth() + 1) +
+        "-" +
+        fechaHoy.getDate();
+      console.log(formatDate);
+      inpDate.value = formatDate;
+      btnShow.addEventListener("click", function () {
+        // Enviar un request GET a https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY
+        // y recibir la respuesta
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("load", function () {
+          const response = JSON.parse(xhr.responseText);
+
+          imgPicture.src = response.url;
+          h1Title.textContent = response.title;
+          pExplanation.textContent = response.explanation;
+          h2Date.textContent = response.date;
+        });
+
+        xhr.open(
+          "GET",
+          "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=" +
+            inpDate.value
+        );
+        xhr.send();
+      });
+    </script>
+  </body>
+</html>
